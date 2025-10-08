@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary Meta Tags -->
+    <title>Loupe - Build with AI in a Continuous Loop</title>
+    <meta name="title" content="Loupe - Build with AI in a Continuous Loop" />
+    <meta
+      name="description"
+      content="Loupe is a Mac app that lets AI build in a continuous loop. Create AI workers with their own browser, terminal, and Claude Code chat. Automatically fixes errors without human intervention. Free while in beta."
+    />
+    <meta
+      name="keywords"
+      content="AI development tool, Mac app, Claude Code, AI workers, automated debugging, continuous integration, Opacity, AI coding assistant, developer tools"
+    />
+    <meta name="author" content="Opacity Software Inc." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://loupe.build/" />
+    <meta
+      property="og:title"
+      content="Loupe - Build with AI in a Continuous Loop"
+    />
+    <meta
+      property="og:description"
+      content="Build products with AI in a continuous loop. Loupe automatically fixes console errors and gives AI agents full access to browser DevTools. Free while in beta."
+    />
+    <meta property="og:image" content="https://loupe.build/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Loupe by Opacity" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://loupe.build/" />
+    <meta
+      property="twitter:title"
+      content="Loupe - Build with AI in a Continuous Loop"
+    />
+    <meta
+      property="twitter:description"
+      content="Build products with AI in a continuous loop. Loupe automatically fixes console errors and gives AI agents full access to browser DevTools. Free while in beta."
+    />
+    <meta
+      property="twitter:image"
+      content="https://loupe.build/twitter-image.png"
+    />
+    <meta property="twitter:site" content="@OpacityHQ" />
+    <meta property="twitter:creator" content="@OpacityHQ" />
+
+    <!-- LinkedIn -->
+    <meta property="linkedin:card" content="summary_large_image" />
+    <meta
+      property="linkedin:title"
+      content="Loupe - Build with AI in a Continuous Loop"
+    />
+    <meta
+      property="linkedin:description"
+      content="Build products with AI in a continuous loop. Loupe automatically fixes console errors and gives AI agents full access to browser DevTools."
+    />
+    <meta
+      property="linkedin:image"
+      content="https://loupe.build/linkedin-image.png"
+    />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="Loupe" />
+    <meta name="apple-mobile-web-app-title" content="Loupe" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="msapplication-TileColor" content="#667eea" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://loupe.build/" />
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="physics-canvas"></canvas>
+    <div class="container">
+      <div class="header">
+        <div class="logo"></div>
+        <h1>Loupe</h1>
+      </div>
+
+      <p class="tagline">
+        Let AI build in a continuous loop, without humans in the loop, using
+        <strong>Loupe.</strong>
+      </p>
+
+      <div class="testimonial">
+        <div class="testimonial-quote">
+          "We were tired of copy/pasting console logs to/from AI. So we built
+          Loupe."
+        </div>
+        <div class="testimonial-author">
+          - Team <a href="https://opacity.app">Opacity</a>
+        </div>
+      </div>
+
+      <div class="app-showcase">
+        <div class="app-icon-container">
+          <div class="app-icon-placeholder" id="placeholder"></div>
+          <div class="app-icon" id="draggableIcon"></div>
+        </div>
+        <div class="download-instructions">
+          <div class="drag-drop">Drag & drop</div>
+          <div class="download-text">to download</div>
+        </div>
+        <div class="download-section">
+          <button class="download-btn" id="downloadBtn">
+            Download<br />Loupe
+          </button>
+        </div>
+      </div>
+
+      <a href="#" class="button see-action" id="seeActionBtn">
+        <span class="play-icon"></span>
+        See Loupe in action
+      </a>
+
+      <div class="description">
+        <p>
+          Loupe is a Mac app that makes it easier to build products with AI.
+        </p>
+
+        <p>
+          Inside Loupe you can create any number of AI workers. Each worker gets
+          its own browser, terminal, and Claude Code chat. All within the same
+          app.
+        </p>
+
+        <p>
+          Anytime there are console or terminal errors, Loupe's Claude Code AI
+          agent is instantly made aware and gets to work fixing it
+          <strong>without</strong> you needing to intervene!
+        </p>
+
+        <p>
+          The AI agent also gets full access to Google Chrome's DevTools MCP and
+          can do anything in the browser just like a real user, and can view
+          anything in dev tools just like a real developer.
+        </p>
+
+        <p>
+          <strong>Loupe is completely free while in beta.</strong>
+        </p>
+      </div>
+
+      <div class="opacity-section">
+        <div class="brought-by">Brought to you by</div>
+        <a href="https://opacity.app" class="opacity-logo">
+          <img src="opacity-logo.svg" alt="Opacity Logo" />
+        </a>
+        <div class="opacity-description">
+          Opacity is a new tool and platform for designing and collaborating on
+          software.<br />
+          Where design is code. Finally, a single source of truth.<br />
+          Where designers collaborate. Finally, the Github for design has
+          arrived.
+        </div>
+        <a href="https://opacity.app" class="button early-access-btn"
+          >Get early access</a
+        >
+      </div>
+
+      <div class="footer">
+        Need help? Reach out
+        <a href="https://x.com/OpacityHQ" target="_blank">@OpacityHQ</a><br />
+        Or email us: <a href="mailto:loupe@opacity.app">loupe@opacity.app</a>
+      </div>
+
+      <div class="copyright">
+        Copyright © 2025 Opacity Software Inc. All rights reserved.
+      </div>
+
+      <div class="beta-version">
+        Latest app version: <strong>beta 0.01</strong>
+      </div>
+    </div>
+
+    <!-- Video Overlay -->
+    <div class="video-overlay" id="videoOverlay">
+      <div class="close-video" id="closeVideo"></div>
+      <div class="video-container">
+        <div class="video-wrapper">
+          <iframe
+            id="youtubeVideo"
+            src=""
+            title="Loupe Demo Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
