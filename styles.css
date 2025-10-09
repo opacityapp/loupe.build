@@ -116,9 +116,8 @@ h1 {
 
 .app-showcase {
   display: flex;
-  align-items: center;
   gap: 20px;
-  margin: 100px 0;
+  margin: 100px 20px 100px 12%;
 }
 
 .app-icon-container {
@@ -167,6 +166,7 @@ h1 {
 
 .download-section {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 180px;
@@ -218,6 +218,9 @@ h1 {
 }
 
 .download-btn {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   background: transparent;
   border: none;
   padding: 0;
@@ -274,7 +277,7 @@ h1 {
   background: #000;
   border-radius: 50px;
   padding: 70px 64px;
-  margin: 100px 0;
+  margin: 100px 12%;
   color: #f6f6f5;
 }
 
@@ -302,6 +305,10 @@ h1 {
 .copyright {
   margin-top: 40px;
   font-size: 12px;
+}
+
+.copyright span {
+  white-space: nowrap;
 }
 
 .beta-version {
@@ -420,6 +427,85 @@ h1 {
 }
 
 @media (max-width: 600px) {
+  body {
+    padding: 60px 0;
+  }
+
+  .container {
+    margin: 0 10%;
+  }
+
+  .app-showcase {
+    margin-left: 10%;
+    flex-direction: column-reverse;
+  }
+
+  .download-instructions {
+    display: none;
+  }
+
+  .download-section {
+    width: fit-content;
+    height: inherit;
+    padding: 10px 20px 10px 14px;
+    justify-content: start;
+  }
+
+  .download-section:not(.drop-active):hover {
+    background: #e6e6e4;
+  }
+
+  .download-section:active {
+    transform: scale(0.98);
+  }
+
+  .download-section.drop-active .download-btn-icon {
+    border-color: #315dff;
+  }
+
+  .download-section.drop-active .download-btn-icon::after {
+    border-color: #315dff;
+  }
+
+  .download-btn {
+    display: flex;
+    color: #000;
+    flex-direction: row;
+    gap: 4.5px;
+    align-items: center;
+  }
+
+  .download-btn:hover {
+    color: #000;
+  }
+
+  .download-btn-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border: 1.5px solid #000;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .download-btn-icon::after {
+    content: "";
+    position: absolute;
+    left: 5.5px;
+    top: 4px;
+    width: 4.5px;
+    height: 4.5px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);
+  }
+
+  .opacity-section {
+    border-radius: 0;
+    padding: 70px 54px;
+    margin: 0;
+  }
+
   .video-container {
     margin: 0 10px;
   }
