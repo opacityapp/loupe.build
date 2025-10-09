@@ -15,6 +15,8 @@ window.addEventListener("load", function () {
   let mouseX = 0,
     mouseY = 0;
 
+  downloadBtn.classList.remove("downloading");
+
   // Load the icon image
   const iconImage = new Image();
   iconImage.src = "loupe-icon.png";
@@ -256,48 +258,113 @@ window.addEventListener("load", function () {
       iconBody.position.y - iconHalfSize < sectionRect.bottom &&
       iconBody.position.y + iconHalfSize > sectionRect.top;
 
-    // Clean up physics
+    // Clean up main animation loop
     cancelAnimationFrame(animationId);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (engine && iconBody) {
-      World.clear(engine.world);
-      Engine.clear(engine);
+    // Remove mouse constraint but keep the icon body in physics world for drop animation
+    if (mouseConstraint) {
+      World.remove(engine.world, mouseConstraint);
+      mouseConstraint = null;
     }
 
+    // Turn off gravity for the drop animation
+    engine.world.gravity.y = 0;
+
+    // Store current position and determine target
+    const startX = iconBody.position.x;
+    const startY = iconBody.position.y;
+    const startAngle = iconBody.angle;
+
+    let targetX, targetY;
     if (isOverSection) {
-      // Snap icon to download section area
-      downloadApp();
-
-      // Move the actual icon element to the download section position
-      const sectionCenterX =
-        sectionRect.left + sectionRect.width / 2 - iconHalfSize;
-      const sectionCenterY =
-        sectionRect.top + sectionRect.height / 2 - iconHalfSize;
-
-      icon.style.position = "fixed";
-      icon.style.left = sectionCenterX + "px";
-      icon.style.top = sectionCenterY + "px";
-      icon.style.visibility = "visible";
-      icon.classList.remove("dragging");
-
-      // After a delay, snap back to original position
-      setTimeout(() => {
-        icon.style.position = "";
-        icon.style.left = "";
-        icon.style.top = "";
-      }, 1500);
+      // Target is the center of the download section
+      targetX = sectionRect.left + sectionRect.width / 2;
+      targetY = sectionRect.top + sectionRect.height / 2;
     } else {
-      // Return to original position immediately
-      icon.style.visibility = "visible";
-      icon.classList.remove("dragging");
+      // Target is the original home position
+      targetX = homePosition.x;
+      targetY = homePosition.y;
     }
 
-    placeholder.classList.remove("visible");
-    downloadSection.classList.remove("drop-active");
+    // Animate the icon to the target position
+    let dropAnimationProgress = 0;
+    const dropAnimationDuration = 200; // milliseconds
+    const dropStartTime = Date.now();
 
-    // Reset cursor
-    document.body.style.cursor = "";
+    function animateDropToPosition() {
+      const elapsed = Date.now() - dropStartTime;
+      dropAnimationProgress = Math.min(elapsed / dropAnimationDuration, 1);
+
+      // Easing function for smooth animation (ease-out cubic)
+      const easeOut = 1 - Math.pow(1 - dropAnimationProgress, 3);
+
+      // Interpolate position
+      const currentX = startX + (targetX - startX) * easeOut;
+      const currentY = startY + (targetY - startY) * easeOut;
+      const currentAngle = startAngle + (0 - startAngle) * easeOut; // Rotate back to 0
+
+      Body.setPosition(iconBody, { x: currentX, y: currentY });
+      Body.setAngle(iconBody, currentAngle);
+
+      // Clear canvas and draw
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.save();
+      ctx.translate(iconBody.position.x, iconBody.position.y);
+      ctx.rotate(iconBody.angle);
+
+      drawIcon(ctx);
+
+      ctx.restore();
+
+      if (dropAnimationProgress < 1) {
+        requestAnimationFrame(animateDropToPosition);
+      } else {
+        // Animation complete, clean up physics
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (engine && iconBody) {
+          World.clear(engine.world);
+          Engine.clear(engine);
+        }
+
+        if (isOverSection) {
+          // Download triggered
+          downloadApp();
+
+          // Move the actual icon element to the download section position
+          const sectionCenterX =
+            sectionRect.left + sectionRect.width / 2 - iconHalfSize;
+          const sectionCenterY =
+            sectionRect.top + sectionRect.height / 2 - iconHalfSize;
+
+          icon.style.position = "fixed";
+          icon.style.left = sectionCenterX + "px";
+          icon.style.top = sectionCenterY + "px";
+          icon.style.visibility = "visible";
+          icon.classList.remove("dragging");
+
+          // After a delay, snap back to original position
+          setTimeout(() => {
+            icon.style.position = "";
+            icon.style.left = "";
+            icon.style.top = "";
+          }, 1500);
+        } else {
+          // Return to original position
+          icon.style.visibility = "visible";
+          icon.classList.remove("dragging");
+        }
+
+        placeholder.classList.remove("visible");
+        downloadSection.classList.remove("drop-active");
+
+        // Reset cursor
+        document.body.style.cursor = "";
+      }
+    }
+
+    animateDropToPosition();
 
     document.removeEventListener("mouseup", endDrag);
     document.removeEventListener("touchend", endDrag);
@@ -311,14 +378,10 @@ window.addEventListener("load", function () {
     link.click();
     document.body.removeChild(link);
 
-    downloadBtn.style.background = "#4CAF50";
-    downloadBtn.style.color = "white";
-    downloadBtn.textContent = "Downloading...";
+    downloadBtn.classList.add("downloading");
 
     setTimeout(() => {
-      downloadBtn.style.background = "";
-      downloadBtn.style.color = "";
-      downloadBtn.innerHTML = "Download<br>Loupe";
+      downloadBtn.classList.remove("downloading");
     }, 2000);
   }
 

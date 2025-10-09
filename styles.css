@@ -153,15 +153,16 @@ h1 {
   position: relative;
   cursor: grab;
   z-index: 10;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05),
-    0 15px 14.2px 0 rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05), 0 13px 14px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    box-shadow 0.4s ease;
 }
 
 .app-icon.dragging {
   cursor: grabbing;
   position: fixed !important;
   z-index: 1000;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .download-section {
@@ -234,6 +235,17 @@ h1 {
 
 .download-btn:hover,
 .download-section.drop-active .download-btn {
+  color: #315dff;
+}
+
+.download-btn .download-btn-during {
+  display: none;
+}
+.download-btn.downloading .download-btn-pre {
+  display: none;
+}
+.download-btn.downloading .download-btn-during {
+  display: flex;
   color: #315dff;
 }
 
