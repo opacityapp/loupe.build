@@ -372,8 +372,8 @@ window.addEventListener("load", function () {
 
   function downloadApp() {
     const link = document.createElement("a");
-    link.href = "https://loop.build/loupe-app.dmg";
-    link.download = "Loupe.dmg";
+    link.href = `https://releases.loupe.build/Loupe-latest.dmg`;
+    link.download = `Loupe-latest.dmg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
