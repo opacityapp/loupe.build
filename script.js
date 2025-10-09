@@ -58,10 +58,11 @@ window.addEventListener("load", function () {
     }
   }
 
-  // Store the original position on page load
+  // Store the original position on page load (relative to viewport + scroll offset)
+  const iconRect = icon.getBoundingClientRect();
   const homePosition = {
-    x: icon.getBoundingClientRect().left + iconHalfSize,
-    y: icon.getBoundingClientRect().top + iconHalfSize,
+    x: iconRect.left + window.scrollX + iconHalfSize,
+    y: iconRect.top + window.scrollY + iconHalfSize,
   };
 
   // Check if Matter.js loaded
@@ -281,9 +282,9 @@ window.addEventListener("load", function () {
       targetX = sectionRect.left + sectionRect.width / 2;
       targetY = sectionRect.top + sectionRect.height / 2;
     } else {
-      // Target is the original home position
-      targetX = homePosition.x;
-      targetY = homePosition.y;
+      // Target is the original home position (adjusted for current scroll)
+      targetX = homePosition.x - window.scrollX;
+      targetY = homePosition.y - window.scrollY;
     }
 
     // Animate the icon to the target position
