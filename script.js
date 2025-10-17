@@ -394,10 +394,19 @@ window.addEventListener("load", function () {
   const closeVideoBtn = document.getElementById("closeVideo");
   const youtubeVideo = document.getElementById("youtubeVideo");
 
+  seeActionBtn.addEventListener("mouseenter", function (e) {
+    e.preventDefault();
+
+    if (!youtubeVideo.src.includes("supercut.ai")) {
+      youtubeVideo.src =
+        "https://supercut.ai/embed/drew/neav4_rYOUPkA_-gcMoz7F?embed=full";
+    }
+  });
+
   seeActionBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (!youtubeVideo.src || youtubeVideo.src === "") {
+    if (!youtubeVideo.src.includes("supercut.ai")) {
       youtubeVideo.src =
         "https://supercut.ai/embed/drew/neav4_rYOUPkA_-gcMoz7F?embed=full";
     }
