@@ -394,15 +394,8 @@ window.addEventListener("load", function () {
   const closeVideoBtn = document.getElementById("closeVideo");
   const youtubeVideo = document.getElementById("youtubeVideo");
 
-  // Sample YouTube video - replace with your actual video ID
-  const videoId = "dQw4w9WgXcQ"; // Rick Roll for demo - replace with your video
-  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-
   seeActionBtn.addEventListener("click", function (e) {
     e.preventDefault();
-
-    // Set the video source when opening
-    youtubeVideo.src = videoUrl;
 
     // Show overlay with animation
     videoOverlay.style.display = "flex";
