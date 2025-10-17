@@ -397,6 +397,11 @@ window.addEventListener("load", function () {
   seeActionBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
+    if (!youtubeVideo.src || youtubeVideo.src === "") {
+      youtubeVideo.src =
+        "https://supercut.ai/embed/drew/neav4_rYOUPkA_-gcMoz7F?embed=full";
+    }
+
     // Show overlay with animation
     videoOverlay.style.display = "flex";
     setTimeout(() => {
